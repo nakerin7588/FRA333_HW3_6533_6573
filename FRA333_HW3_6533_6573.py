@@ -57,9 +57,6 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
     column_1 = np.concatenate((cross_1, z_1), axis = 0)
     column_2 = np.concatenate((cross_2, z_2), axis = 0) 
     column_3 = np.concatenate((cross_3, z_3), axis = 0) 
-    # column_1 = np.concatenate((j1, z_1), axis = 0)
-    # column_2 = np.concatenate((j2, z_2), axis = 0) 
-    # column_3 = np.concatenate((j3, z_3), axis = 0) 
     
     # Stack the cross product at horizontal axis
     jacobian = np.hstack((column_1, column_2, column_3))
