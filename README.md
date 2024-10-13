@@ -1,6 +1,10 @@
 # FRA333_HW3_6533_6573
 This is README file for explain how to check the answer of FRA333_HW3_6533_6573.
 
+Members:
+1. นายนครินทร์ เจตนาธรรมจิต    65340500033
+2. นางสาวพีรดา สุขถาวร        65340500073
+
 # Getting Started
 To check the answer of FRA333_HW3_6533_6573. You must have all of prerequisites for FRA333_HW3_6533_6573.
 ## Prerequisites
