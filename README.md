@@ -111,3 +111,5 @@ Answer from np.isclose(RTB reference jacobian from frame e) is True
 ```
 
 Section 1 is the output from computeEffortHW3. Section 2 is the output from roboticstoolbox. To cheack is answer from computeEffortHW3 is correct. We use **np.isclose** for check that answer from **computeEffortHW3 is same as answer from roboticsstoolbox**. **From roboticsstoolbox provide 2 jacobian(reference from frame 0 and frame e)**
+
+> **To see more calculation details, you can read calculationpaper.pdf**
