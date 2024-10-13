@@ -43,8 +43,9 @@ robot = rtb.DHRobot(
     )
 
 #=====================================<Define important variables>==============================================#
-q = [0, 0, 0] # Configuration space
+q = [np.pi, np.pi, np.pi] # Configuration space ** Unit must be radians
 w = [1, 2, 3, 4, 5, 6] # Force and Moment that reference at frame e [force moment]
+R,P,R_e,p_e = FKHW3(q) # Get data from FKHW3 with new q
 #===========================================<ตรวจคำตอบข้อ 1>====================================================#
 print("================================")
 print("Question 1 start answer checking")
@@ -61,6 +62,7 @@ print(f"Answer from np.isclose is {np.isclose(jacobian, robot.jacob0(q = q), ato
 #===========================================<ตรวจคำตอบข้อ 2>====================================================#
 print("================================")
 print("Question 2 start answer checking")
+
 # Check answer
 print("Answer from endEffectorJacobianHW3")
 flag = checkSingularityHW3(q) # Check singularity from checkSingularityHW3
@@ -79,9 +81,9 @@ print("Answer from computeEffortHW3")
 print(tau)
 print("Answer from RoboticsToolbox")
 print("Check answer from jacobian that reference from frame 0")
-w_reframe = np.vstack((R_e @ np.array(w)[0:3].reshape(3, 1), R_e @ np.array(w)[3:6].reshape(3, 1))) # w that has rereference frame to frame 0 same as jacobian
+w_reframe = np.vstack((R_e @ (np.array(w)[0:3].reshape(3, 1)), R_e @ (np.array(w)[3:6].reshape(3, 1)))) # w that has rereference frame to frame 0 same as jacobian
 tau_jacob0 = robot.jacob0(q = q).T @ w_reframe # Calculate tau using jacobian from roboticsToolbox
-print(tau_jacob0)
+print(tau_jacob0) # Calculate tau using jacobian from roboticsToolbox
 print("Check answer from jacobian that reference from frame e")
 tau_jacobe = robot.jacobe(q = q).T @ np.array(w).reshape(6,1)
 print(tau_jacobe) # Calculate tau using jacobian from roboticsToolbox

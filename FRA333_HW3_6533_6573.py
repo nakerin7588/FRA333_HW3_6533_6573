@@ -8,13 +8,7 @@
 #=============================================<Import library>==================================================#
 from HW3_utils import FKHW3
 import numpy as np
-#==========================================<Initiallize variables>==============================================#
-
 #===============================================<คำตอบข้อ 1>=====================================================#
-'''
-
-'''
-#code here
 def endEffectorJacobianHW3(q:list[float])->list[float]:
     # Get q1,q2 and q3 from argument "q"
     [q1,q2,q3] = q
@@ -70,7 +64,6 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
     return jacobian
 #===============================================================================================================#
 #=============================================<คำตอบข้อ 2>======================================================#
-#code here
 def checkSingularityHW3(q:list[float])->bool:
     '''
         Check singularity
@@ -93,7 +86,6 @@ def checkSingularityHW3(q:list[float])->bool:
     return np.isclose(det_J, 0.0, atol=tolerance).all()
 #==============================================================================================================#
 #=============================================<คำตอบข้อ 3>======================================================#
-#code here
 def computeEffortHW3(q:list[float], w:list[float])->list[float]:
     # Get R, P, R_e, p_e from FKHW3(q)
     R, P, R_e, p_e = FKHW3(q)
