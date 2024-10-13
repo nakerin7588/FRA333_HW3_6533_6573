@@ -57,6 +57,7 @@ print(J_e)
 print("")
 print("Answer from RoboticsToolbox")
 print(robot.jacobe(q = q)) # Get Jacobian from roboticsToolbox
+print("")
 # Use np.isclose to check that the Jacobian from endEffectorJacobianHW3 and the Jacobian from roboticsToolbox are the same with low tolerance
 print(f"Answer from np.isclose is {np.isclose(J_e, robot.jacobe(q = q), atol=1e-3).all()}")
 #==============================================================================================================#
