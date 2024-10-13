@@ -36,7 +36,7 @@ R,P,R_e,p_e = FKHW3(q) # Get data from FKHW3 with new q
 * **w** = [fx, fy, fz, mx, my, mz]
 
 # How to check answer
-**This answer in terminal are set the q to [pi, pi, pi] and the w to [1, 2, 3, 4, 5, 6]
+**This answer in terminal are set the q to [pi, pi, pi] and the w to [1, 2, 3, 4, 5, 6]**
 ## Question 1: Compute the endeffector jacobian
 To check answer of this question you will need to define the `q parameter` from Define important variables first. After that you can run the `testScript.py` to check the answer. The answer will show like this in terminal:
 
