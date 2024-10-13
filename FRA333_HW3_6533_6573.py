@@ -57,9 +57,20 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
     column_1 = np.concatenate((cross_1, z_1), axis = 0)
     column_2 = np.concatenate((cross_2, z_2), axis = 0) 
     column_3 = np.concatenate((cross_3, z_3), axis = 0) 
+    # column_1 = np.concatenate((j1, z_1), axis = 0)
+    # column_2 = np.concatenate((j2, z_2), axis = 0) 
+    # column_3 = np.concatenate((j3, z_3), axis = 0) 
     
     # Stack the cross product at horizontal axis
     jacobian = np.hstack((column_1, column_2, column_3))
+    
+    # Construct the block diagonal transformation matrix
+    T = np.block([
+        [R_e.T, np.zeros((3, 3))],
+        [np.zeros((3, 3)), R_e.T]
+    ])
+    
+    jacobian = T @ jacobian
     
     return jacobian
 #===============================================================================================================#
@@ -94,18 +105,8 @@ def computeEffortHW3(q:list[float], w:list[float])->list[float]:
     F_e = np.array(w)[0:3].reshape(3, 1)
     M_e = np.array(w)[3:6].reshape(3, 1)
     
-    # Rereference frame for calculate tau because Jacobian is reference from frame 0
-    '''
-        Rereferences frame
-            from w_0 = R_e @ w_e get:
-            F_0 = R_e @ F_e
-            M_0 = R_e @ M_e
-    '''
-    F_0 = R_e @ F_e
-    M_0 = R_e @ M_e
-    
     # Create new w
-    w = np.vstack((F_0, M_0))
+    w = np.vstack((F_e, M_e))
     
     # Calculate the tau
     '''

@@ -49,27 +49,31 @@ R,P,R_e,p_e = FKHW3(q) # Get data from FKHW3 with new q
 #===========================================<ตรวจคำตอบข้อ 1>====================================================#
 print("================================")
 print("Question 1 start answer checking")
-jacobian = endEffectorJacobianHW3(q) # Calculate Jacobian from endEffectorJacobianHW3
+J_e = endEffectorJacobianHW3(q) # Calculate Jacobian from endEffectorJacobianHW3
 
 # Check answer
 print("Answer from endEffectorJacobianHW3")
-print(jacobian)
+print(J_e)
+print("")
 print("Answer from RoboticsToolbox")
-print(robot.jacob0(q = q)) # Get Jacobian from roboticsToolbox
+print(robot.jacobe(q = q)) # Get Jacobian from roboticsToolbox
 # Use np.isclose to check that the Jacobian from endEffectorJacobianHW3 and the Jacobian from roboticsToolbox are the same with low tolerance
-print(f"Answer from np.isclose is {np.isclose(jacobian, robot.jacob0(q = q), atol=1e-3).all()}")
+print(f"Answer from np.isclose is {np.isclose(J_e, robot.jacobe(q = q), atol=1e-3).all()}")
 #==============================================================================================================#
 #===========================================<ตรวจคำตอบข้อ 2>====================================================#
 print("================================")
 print("Question 2 start answer checking")
 
 # Check answer
-print("Answer from endEffectorJacobianHW3")
+print("Answer from checkSingularityHW3")
 flag = checkSingularityHW3(q) # Check singularity from checkSingularityHW3
-print(flag)
+print(f'Is this configuraion space make robot singularity: {flag}')
+print("")
 print("Answer from RoboticsToolbox")
-print(f"determinant of Jacobian from checkSingularityHW3 function is {np.linalg.det(robot.jacob0(q = q)[0:3, :])}")
-print(np.isclose(np.linalg.det(robot.jacob0(q = q)[0:3, :]), 0.0, atol=1e-3).all()) # Get Jacobian from roboticsToolbox and reduce it to be square
+print(f"determinant of Jacobian(ref frame 0) from checkSingularityHW3 function is {np.linalg.det(robot.jacob0(q = q)[0:3, :])}")
+print(f'Is this configuraion space make robot singularity: {np.isclose(np.linalg.det(robot.jacob0(q = q)[0:3, :]), 0.0, atol=1e-3).all()}') # Get Jacobian from roboticsToolbox and reduce it to be square
+print(f"determinant of Jacobian(ref frame e) from checkSingularityHW3 function is {np.linalg.det(robot.jacobe(q = q)[0:3, :])}")
+print(f'Is this configuraion space make robot singularity: {np.isclose(np.linalg.det(robot.jacobe(q = q)[0:3, :]), 0.0, atol=1e-3).all()}') # Get Jacobian from roboticsToolbox and reduce it to be square
 #==============================================================================================================#
 #===========================================<ตรวจคำตอบข้อ 3>====================================================#
 print("================================")
@@ -79,15 +83,16 @@ tau = computeEffortHW3(q, w)
 # Check answer
 print("Answer from computeEffortHW3")
 print(tau)
+print("")
 print("Answer from RoboticsToolbox")
 print("Check answer from jacobian that reference from frame 0")
 w_reframe = np.vstack((R_e @ (np.array(w)[0:3].reshape(3, 1)), R_e @ (np.array(w)[3:6].reshape(3, 1)))) # w that has rereference frame to frame 0 same as jacobian
 tau_jacob0 = robot.jacob0(q = q).T @ w_reframe # Calculate tau using jacobian from roboticsToolbox
 print(tau_jacob0) # Calculate tau using jacobian from roboticsToolbox
+print(f"Answer from np.isclose(RTB reference jacobian from frame 0) is {np.isclose(tau, tau_jacob0, atol=1e-3).all()}")
 print("Check answer from jacobian that reference from frame e")
 tau_jacobe = robot.jacobe(q = q).T @ np.array(w).reshape(6,1)
 print(tau_jacobe) # Calculate tau using jacobian from roboticsToolbox
 # Use np.isclose to check that the tau from computeEffortHW3 and the computeEffortHW3 from roboticsToolbox are the same with low tolerance
-print(f"Answer from np.isclose(RTB reference jacobian from frame 0) is {np.isclose(tau, tau_jacob0, atol=1e-3).all()}")
 print(f"Answer from np.isclose(RTB reference jacobian from frame e) is {np.isclose(tau, tau_jacobe, atol=1e-3).all()}")
 #==============================================================================================================#
